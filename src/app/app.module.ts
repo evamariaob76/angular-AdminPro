@@ -18,6 +18,7 @@ import { AuthRoutingModule } from './auth/auth.routing';
     AppComponent,
     NopagefoundComponent,
     AppComponent,
+
  
   ],
   imports: [
@@ -26,6 +27,7 @@ import { AuthRoutingModule } from './auth/auth.routing';
     PagesModule,
     AuthModule,
     AuthRoutingModule,
+
 
   ],
   providers: [],
