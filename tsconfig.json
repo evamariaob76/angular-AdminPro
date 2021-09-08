@@ -19,7 +19,8 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "noImplicitAny": false,//configurado para poder hacer el foreach en account
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
