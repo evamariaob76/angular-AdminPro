@@ -7,6 +7,8 @@ import { map, tap, catchError } from 'rxjs/operators';
 import { Observable,of } from 'rxjs';
 import { Router } from '@angular/router';
 import { pairwise } from 'rxjs-compat/operator/pairwise';
+import { Usuario } from '../models/usuario.model';
+
 
 const base_url = environment.base_url;
 declare const gapi:any;
@@ -16,8 +18,31 @@ declare const gapi:any;
 })
 export class UssarioService {
   public auth2 : any;
+  public usuario2?: Usuario;
+  public img;
+  public usuario:Usuario = new Usuario();
 
-  googleInit() {
+
+
+  constructor( private http : HttpClient,
+              private router : Router,
+              private ngZone : NgZone
+              ) {
+                this.googleInit();
+               // this.usuario= new Usuario();
+               }
+  get token(): string {
+
+    return localStorage.getItem('token') || '';
+  }
+
+  get uid():string {
+    return this.usuario?.uid || '';
+  }
+
+
+
+    googleInit() {
     return new Promise<void> (resolve =>{
       console.log('google init')
     gapi.load('auth2',()=>{
@@ -33,14 +58,6 @@ export class UssarioService {
     //throw new Error('Method not implemented.');
 
   }
-
-  constructor( private http : HttpClient,
-              private router : Router,
-              private ngZone : NgZone
-              ) {
-                this.googleInit();
-               }
-  
   logout(){
     localStorage.removeItem('token');
     this.auth2.signOut().then( () => {
@@ -51,18 +68,27 @@ export class UssarioService {
     });
   }
 
-  validarToken(): Observable<boolean> {
-    const token = localStorage.getItem('token') || '';
-
+   validarToken(): Observable<boolean> {
+    
     return this.http.get(`${ base_url }/login/renew`, {
       headers: {
-        'x-token': token
+        'x-token': this.token
       }
     }).pipe(
-      tap( (resp: any) => {
+      map( (resp: any) => {
+       const { email, google, nombre, role, img = '', uid } = resp.usuarioDB;
+       this.usuario = new Usuario( nombre, email, '', img, google, role, uid );
+       // this.usuario = <Usuario> resp.usuarioDB;
         localStorage.setItem('token', resp.token );
+        console.log(this.usuario.imagenUrl+'---imagen no hay')
+
+       this.img= resp.usuarioDB.imagenUrl;
+           
+
+
+        return true;
+
       }),
-      map( resp => true),
       catchError( error => of(false) )
     );
 
@@ -77,6 +103,21 @@ export class UssarioService {
                   localStorage.setItem('token', resp.token)                   })
                  )
     
+  }
+
+   actualizarPerfil( data: { email: string, nombre: string, role: string } ) {
+    data = {
+      ...data,
+      role: this.usuario?.role!
+    };
+
+   return  this.http.put(`${base_url}/usuarios/${this.uid}`, data,{
+
+    headers: {
+        'x-token': this.token
+      }
+   })
+
   }
 
     login (formdata: LoginForm){
@@ -94,6 +135,17 @@ export class UssarioService {
                    tap((resp:any)=>{
                   localStorage.setItem('token', resp.token)                   })
                  )
+    
+  }
+ 
+  getUsuario(uid) {
+   return this.http.get(`${base_url}/usuarios/${this.uid}`, {
+   headers: {
+        'x-token': this.token
+      }
+
+   })
+                 
     
   }
 }

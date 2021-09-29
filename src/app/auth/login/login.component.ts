@@ -32,8 +32,7 @@ export class LoginComponent implements OnInit {
     this.renderButton();
   }
 
-
-  login() {
+ login() {
 
     this.usuarioService.login( this.loginForm.value )
       .subscribe( resp => {
@@ -53,6 +52,7 @@ export class LoginComponent implements OnInit {
       });
 
   }
+  
   
   renderButton() {
     gapi.signin2.render('my-signin2', {

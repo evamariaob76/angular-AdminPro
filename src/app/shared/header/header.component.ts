@@ -1,5 +1,9 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { UssarioService } from 'src/app/services/ussuario.service';
+import { Usuario } from '../../models/usuario.model';
+
+
+
 
 @Component({
   selector: 'app-header',
@@ -7,12 +11,29 @@ import { UssarioService } from 'src/app/services/ussuario.service';
   styles: [
   ]
 })
-export class HeaderComponent   {
+export class HeaderComponent  implements OnInit {
+  
 
-  constructor(private usuarioService: UssarioService) { }
+  public imgUrl;
+  public usuario;
+  public editMessage?;
+  public usuarioUID;
+  public email: any;
 
+  constructor(public usuarioService: UssarioService) { 
+   
+    this.usuario = usuarioService.usuario;
+    this.usuarioUID= usuarioService.usuario.uid;
+    this.imgUrl = this.usuarioService.usuario.imagenUrl;
+  this.email= this.usuarioService.usuario.email;
+        
+  }
+  ngOnInit(): void {
+      }
+  
   logout(){
     this.usuarioService.logout();
+
   }
 
 }

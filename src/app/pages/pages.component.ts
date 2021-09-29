@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SettingsService } from '../services/settings.service';
+import{Usuario} from'../models/usuario.model'
 declare function customInitFunctions();
 
 @Component({
@@ -10,7 +11,7 @@ declare function customInitFunctions();
 })
 export class PagesComponent implements OnInit {
 
-
+public usuario? : Usuario;
   constructor(private settingService: SettingsService) { }
 
   ngOnInit(): void {
@@ -18,6 +19,9 @@ export class PagesComponent implements OnInit {
    customInitFunctions();
 
   }
+recibir(mensaje){
+this.usuario= mensaje;
+}
 
 }
 
