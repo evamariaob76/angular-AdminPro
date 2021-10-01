@@ -1,5 +1,7 @@
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
+import { AuthGuard } from '../guards/auth.guard';
+
 
 import { PagesComponent } from './pages.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -8,8 +10,8 @@ import { GraficalComponent } from './grafical/grafical.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { PromesasComponent } from './promesas/promesas.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
-import { AuthGuard } from '../guards/auth.guard';
 import { PerfilComponent } from './perfil/perfil.component';
+import { UsuariosComponent } from './mantenimientos/usuarios/usuarios.component';
 
 const routes: Routes = [
     { 
@@ -24,6 +26,10 @@ const routes: Routes = [
             { path: 'promesa', component: PromesasComponent, data:{titulo: 'Promesas'} },
             { path: 'rxjs', component: RxjsComponent, data:{titulo: 'RXJS'}},
             { path: 'perfil', component: PerfilComponent, data:{titulo: 'Perfil de Usuario'}},
+
+            //Mantenimintos
+            { path: 'usuarios', component: UsuariosComponent, data:{titulo: 'Usuarios de aplicación'}},
+
 
         ]
     },

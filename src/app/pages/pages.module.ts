@@ -13,6 +13,7 @@ import { PromesasComponent } from './promesas/promesas.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { HeaderComponent } from '../shared/header/header.component';
+import { UsuariosComponent } from './mantenimientos/usuarios/usuarios.component';
 
 
 
@@ -26,6 +27,7 @@ import { HeaderComponent } from '../shared/header/header.component';
    PromesasComponent,
    RxjsComponent,
    PerfilComponent,
+   UsuariosComponent,
   ],
     exports: [
    PagesComponent,
