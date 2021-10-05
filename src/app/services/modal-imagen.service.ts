@@ -21,7 +21,7 @@ export class ModalImagenService {
   }
 
   abriModal(
-    tipo: 'usuarios'|'medicos' |'|hospitales',
+    tipo: 'usuarios'|'medicos' |'hospitales',
     id: string,
     img: string = 'no-img'
   ){
