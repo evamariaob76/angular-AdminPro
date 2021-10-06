@@ -31,16 +31,15 @@ export class BusquedasService {
     return resultados.map(
             user=>new Usuario (user.nombre, user.email, '', user.img, user.google, user.role, user.uid),
     )
-
   }
 
-    private transformarHospitales( resultados: any[] ): Hospital[] {
+  private transformarHospitales( resultados: any[] ): Hospital[] {
     return resultados.map(
             hospital=>new Hospital (hospital._id, hospital.nombre,  hospital.img),
     )
   }
 
-     private transformarMedicos( resultados: any[] ): Medico[] {
+  private transformarMedicos( resultados: any[] ): Medico[] {
     return resultados.map(
             medico=>new Medico (medico._id, medico.nombre,  medico.img),
     )
@@ -74,4 +73,11 @@ export class BusquedasService {
             );
 
     }
+  
+    busquedaGlobal(termino:string){
+      const url = `${ base_url }/todo/${ termino }`;
+      return this.http.get<any[]>( url, this.headers )
+    }
+
+     
   }

@@ -1,4 +1,5 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { UssarioService } from 'src/app/services/ussuario.service';
 import { Usuario } from '../../models/usuario.model';
 
@@ -20,7 +21,8 @@ export class HeaderComponent  implements OnInit {
   public usuarioUID;
   public email: any;
 
-  constructor(public usuarioService: UssarioService) { 
+  constructor(public usuarioService: UssarioService,
+              private router: Router) { 
    
     this.usuario = usuarioService.usuario;
     this.usuarioUID= usuarioService.usuario.uid;
@@ -34,6 +36,12 @@ export class HeaderComponent  implements OnInit {
   logout(){
     this.usuarioService.logout();
 
+  }
+  buscar(termino:string){
+    if(termino.length===0){
+    this.router.navigateByUrl(`/dashboard`)
+    }
+    this.router.navigateByUrl(`/dashboard/buscar/${termino}`)
   }
 
 }

@@ -12,17 +12,16 @@ import { environment } from '../../../environments/environment';
 })
 export class SidebarComponent implements OnInit {
 
-  public menuItems: any [];
   public imgUrl;
   public usuario: Usuario = new Usuario ();
 
 
-  constructor(private sidebarService: SidebarService,
-    public usuarioService : UssarioService
+  constructor(public sidebarService: SidebarService,
+              public usuarioService : UssarioService
     ) {
-    this.menuItems = sidebarService.menu;
+    //this.menuItems = sidebarService.menu;
     this.usuario = usuarioService.usuario;
-    this.imgUrl = this.usuarioService.usuario.imagenUrl
+   // this.imgUrl = this.usuarioService.usuario.imagenUrl
 
 
 
